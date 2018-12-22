@@ -1,0 +1,14 @@
+{% extends "base/base_1col.html" %}
+
+{% block www_title %}{% trans "Activation expired" %}{% endblock www_title %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1 %}
+    <br/>
+    <h2>{% trans "Your activation key has expired" %}</h2>
+    <br/>
+    <p>{% blocktrans %}You must activate your account within {{ expiration_days|apnumber }} to avoid expiration. Try to register again.{% endblocktrans %}</p>
+{% endblock www_content_box_1 %}

@@ -1,0 +1,77 @@
+{% extends "profiles/base_3col.html" %}
+
+
+{% block www_title %}{{block.super}} -- {% trans "Edit Skill Details " %} [{{request.user.username}}]{% endblock www_title %}
+
+{% block www_content_box_1_2 %}
+
+<div id="list_management">
+    {% if jobs %}
+    <div class="list-header">Job Posts</div>
+    <table class="tree-browser">
+        {% for job in jobs %}
+            <tr class="{% cycle 'odd' 'even' %}">
+                <td class="category">{{ job.title }}</td>
+                <td class="level image">
+                {% if job.is_public %}
+                    <a href="{% url 'employer_jobs_public_view' pk=job.id slug=job.get_slug %}" target="_blank" class="tooltip">
+                        <img src="{{STATIC_URL}}img/eye.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            View job as seen by public
+                        </span>
+                    </a>
+                {% else %}
+                    <a href="javascript:void(0)" target="_blank" class="tooltip help_cursor">
+                        <img src="{{STATIC_URL}}img/eye.png" class="transparent" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            Job is inactive
+                        </span>
+                    </a>
+                {% endif %}
+                </td>
+                <td class="level image">
+                    <a href="javascript:void(0)" class="tooltip help_cursor">
+                        <img src="{{STATIC_URL}}img/info.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all center large">
+                            <strong>{{ job.title }}</strong><br/><br/>
+                            <strong>Description</strong><br/><br/>
+                            {{ job.description }}<br/><br/>
+                            <strong>Requirements</strong><br/><br/>
+                            {{ job.requirements }}<br/><br/>
+                            <strong>Number of views: </strong> ({{ job.viewed }})<br/>
+                            <strong>Number of bookmarks: </strong> ({{ job.bookmarked }})
+                        </span>
+                    </a>
+                </td>
+                <td class="edit image">
+                    <a href="{% url 'employer_update_jobpost' job.id %}" class="tooltip">
+                        <img src="{{STATIC_URL}}img/edit.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            Update this job
+                        </span>
+                    </a>
+                </td>
+                <td class="delete image">
+                    <a href="{% url 'employer_delete_jobpost' job.id %}" class="tooltip confirm post_link">
+                        <img src="{{STATIC_URL}}img/minus_circle.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            Delete this job
+                        </span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    
+    <div id="account-settings">
+        <form class="main_form" action="" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+            <fieldset>
+                <legend>{% trans "Add New JobPost" %}</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <input type="submit" value="{% trans "Save" %}" />
+        </form>
+    </div>
+</div>
+{% endblock www_content_box_1_2 %}

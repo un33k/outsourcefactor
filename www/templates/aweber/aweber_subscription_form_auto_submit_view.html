@@ -1,0 +1,43 @@
+{% extends "base/base_3col.html" %}
+
+{% block www_title %}{% trans "Signup Confirmation Sent" %}{% endblock www_title %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+
+
+{% block www_content_box_1_2 %}
+
+    {% if aweber_subscription_success %}
+        <img id="signup_progress" src='{{STATIC_URL}}img/ajax_wheel.gif' />
+        <form method="post" id="aweber_form" class="af-form-wrapper" action="http://www.aweber.com/scripts/addlead.pl"  >
+            <div style="display: none;">
+                <input type="hidden" name="redirect" value="{{subscribed_callback}}" />
+                <input type="hidden" name="meta_redirect_onlist" value="{{already_subscribed_callback}}" />
+                <input type="hidden" name="listname" value="{{list_name}}" />
+                <input type="hidden" name="meta_adtracking" value="{{segment}}" />
+                <input type="hidden" name="meta_message" value="1" />
+                <input type="hidden" name="meta_required" value="name,email" />
+
+                <input type="hidden" name="name" value="{{name}}" />
+                <input type="hidden" name="email" value="{{email}}" />
+                <input type="hidden" name="custom token" value='{{token}}'/>
+                
+            </div>
+        </form>
+        <script language="JavaScript" type="text/javascript">document.getElementById('aweber_form').submit();</script>
+    {% else %}
+        <br/><br/><br/><br/>
+        <h2>Signup Error!</h2>
+        <br />
+        <p>There was an error during the signing process for: <b>{{full_name}} -- {{email}}</b>.</p>
+        <p>This can be a system issue, so wait a bit and try again!</p>
+    {% endif %}
+    
+{% endblock www_content_box_1_2 %}
+
+
+
+

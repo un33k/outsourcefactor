@@ -1,0 +1,102 @@
+{% extends "profiles/base_3col.html" %}
+
+{% block www_title %}{{block.super}} -- {% trans " Social Settings " %}{% endblock www_title %}
+
+
+{% block www_content_box_1_2 %}
+<div class="social_providers_enable_box">
+    <div class="social_top">
+        <p>If you already have an account with one or more of the following social login providers,
+            then enable them so in the future, you can login without a password.<br/><br/>
+            <strong>Note:</strong> These other social network providers do not share your personal information with us.  They simply validate that you are already logged in with your primary email address.  We use these networks to authenticate you ONLY.  We don't require, ask for, or keep any other information.
+            <br/><br/>
+        </p>
+    
+        <div class="header">{% trans "Social Login Providers" %}</div>
+        {% if available_providers %}
+        <table class="tree-browser">
+            <tr class="odd">
+                <td>
+                {% for sp in available_providers %}
+                    <div class="provider_action">
+                    {% if sp|is_social_provider_enabled:request.user %}
+                        <div class="provider-image">
+                            <img title="{{sp}} login" src="{{ COMMON_DOWNLOADABLE_STATIC_URL }}images/social/{{ sp|lower }}_48.png" />
+                        </div>
+                        <img class="add-social transparent" src="{{ STATIC_URL }}img/add.gif"/>
+                        <a class="tooltip post_link" href="{% url 'social_provider_disable' sp|lower %}">
+                            <img class="delete-social" src="{{ STATIC_URL }}img/delete.gif"/>
+                            <span class="ui-widget ui-widget-content ui-corner-all forward">
+                                disable {{sp}} login
+                            </span>
+                        </a>
+                    {% else %}
+                        <div class="provider-image transparent">
+                            <img title="{{sp}} login" src="{{ COMMON_DOWNLOADABLE_STATIC_URL }}images/social/{{ sp|lower }}_48.png" />
+                        </div>
+                        <a class="tooltip post_link" href="{% url 'social_provider_enable' sp|lower %}">
+                            <img class="add-social" src="{{ STATIC_URL }}img/add.gif"/>
+                            <span class="ui-widget ui-widget-content ui-corner-all forward">
+                                enable {{sp}} login
+                            </span>
+                        </a>
+                        <img class="delete-social transparent" src="{{ STATIC_URL }}img/delete.gif"/>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+                </td>
+            </tr>
+        </table>
+        {% endif %}
+    
+        <br/><br/><br/>
+        {% if social_profile_providers %}
+        <div class="list-header">Social Networking Provider List</div>
+        <table class="tree-browser">
+            {% for sp in social_profile_providers %}
+                <tr class="{% cycle 'odd' 'even' %}">
+                    <td class="link">{{ sp.get_provider_display }}</td>
+                    <td class="level image">
+                        <a href="{{sp.website}}" target="_blank" class="tooltip">
+                            <img src="{{STATIC_URL}}img/eye.png" />
+                            <span class="ui-widget ui-widget-content ui-corner-all center">
+                                Open Link
+                            </span>
+                        </a>
+                    </td>
+                    <td class="level image">
+                        <a href="javascript:void(0)" class="tooltip help_cursor">
+                            <img src="{{STATIC_URL}}img/info.png" />
+                            <span class="ui-widget ui-widget-content ui-corner-all backward xlarge">
+                                {{ sp.website }}<br/>
+                            </span>
+                        </a>
+                    </td>
+                    <td class="delete image">
+                        <a href="{% url 'social_provider_delete' sp.id %}" class="tooltip confirm post_link">
+                            <img src="{{STATIC_URL}}img/minus_circle.png" />
+
+                            <span class="ui-widget ui-widget-content ui-corner-all forward">
+                                Delete this social networking provider
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+    
+    <div id="account-settings">
+        <form class="main_form" class="main_form" action="" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+            <fieldset>
+                <legend>{% trans "Add Social Networking Links" %}</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <input type="submit" value="{% trans "Save" %}" />
+        </form>
+    </div>
+    
+</div>
+    
+{% endblock www_content_box_1_2 %}

@@ -1,0 +1,69 @@
+
+
+<div class="public_header">
+    {% if is_public_view %}
+        {% if jobs %}
+            Job Posts&nbsp;&nbsp;&nbsp;
+        {% endif %}
+    {% else %}
+        Job Posts&nbsp;&nbsp;&nbsp;
+        <a class="tooltip" href="{% url 'employer_jobpost_list' %}">
+            {% if jobs %}
+                <img src="{{STATIC_URL}}img/edit.png" />
+                <span class="ui-widget ui-widget-content ui-corner-all forward">
+                    Edit jobs details
+                </span>
+            {% else %}
+                <img src="{{STATIC_URL}}img/add.gif" />
+                <span class="ui-widget ui-widget-content ui-corner-all forward">
+                    Add new job posts
+                </span>
+            {% endif %}                
+        </a>
+    {% endif %}
+</div>
+     
+{% if jobs %}
+    <table class="tree-browser">
+    {% for job in jobs %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td class="category">{{ job.title }}</td>
+            <td class="level image">
+                {% if job.is_public %}
+                    <a href="{% url 'employer_jobs_public_view' pk=job.id slug=job.get_slug %}" target="_blank" class="tooltip">
+                        <img src="{{STATIC_URL}}img/eye.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            View job
+                        </span>
+                    </a>
+                {% else %}
+                    <a href="javascript:void(0)" target="_blank" class="tooltip help_cursor">
+                        <img src="{{STATIC_URL}}img/eye.png" class="transparent" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            Job is inactive
+                        </span>
+                    </a>
+                {% endif %}
+            </td>
+            <td class="level image">
+                <a href="javascript:void(0)" class="tooltip help_cursor">
+                    <img src="{{STATIC_URL}}img/stats.png" />
+                    <span class="ui-widget ui-widget-content ui-corner-all center large">
+                        <strong>Number of views: </strong> ({{ job.viewed }})<br/>
+                        <strong>Number of bookmarks: </strong> ({{ job.bookmarked }})
+                    </span>
+                </a>
+            </td>
+            <td class="level image">
+                <a href="javascript:void(0)" class="tooltip help_cursor">
+                    <img src="{{STATIC_URL}}img/info.png" />
+                    <span class="ui-widget ui-widget-content ui-corner-all backward large">
+                        <strong>Description</strong><br/><br/>
+                        {{ job.description }}<br/><br/>
+                    </span>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}

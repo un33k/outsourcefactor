@@ -1,0 +1,20 @@
+{% extends "base/base_1col.html" %}
+
+{% block www_title %}{% trans "Logged Out" %}{% endblock www_title %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1 %}
+    <br/>
+    <h2>{% trans "You are logged out now!" %}</h2>
+    
+    <p>
+    {% trans "Thanks for stopping by!<br/>When you come back, don't forget to" %} 
+    <a href="{% url 'auth_login' %}"><b>{% trans "Login" %}</b></a> 
+    {% trans "again" %}.</p>
+    
+    Thank you!
+
+{% endblock www_content_box_1 %}

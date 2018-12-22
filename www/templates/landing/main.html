@@ -1,0 +1,76 @@
+{% extends "base/base_1col.html" %}
+
+{% block www_container %}
+
+    {% block www_container_title %}
+        {% include "portal/submenu.html" %}
+    {% endblock www_container_title %}
+    
+    <div id="features-container" class="group">
+        <div id="employer-features">
+            <h2 class="employer_header">Employers</h2>
+            <h3 class="header">Hire Virtual Assistants</h3>
+                <span class="feature_hint">( full-time assistants for as little as $300 per month )</span>
+                <ul class="no_bullets">
+                    <li class="outlined">Post Your Jobs</li>
+                    <li class="outlined">Find Reliable Virtual Assistants</li>
+                    <li class="outlined">Hire Dependable Assistants Internationally</li>
+                    <li class="outlined">No Commissions or Markup Fees</li>
+                    <li class="outlined">Bookmark Candidates</li>
+                    <li class="outlined">Contact Candidates</li>
+                    <li class="outlined">Social Login</li>
+                    <li class="outlined">Company Youtube Video Pitch</li>
+                    <li class="outlined"><strong>Free Accounts</strong> ( Promotional )</li>
+                    <li class="main_signup">
+                        <a class="main_signup" href="{% url 'registration_register' %}" title="Create Your Employer Outsourcing Account">
+                            &raquo; Create Your Employer Account Now &laquo;
+                        </a>
+                    </li>
+                    <li id="landing_promo_video_content_employer">
+                        <video width="286" height="160" id="player1">
+                            <source type="video/mp4" src="{{STATIC_URL}}video/landing_promo_video.mp4?{{p_static_random}}" />
+                        </video>
+                    </li>
+                </ul>
+        </div>
+    
+        <div id="jobseeker-features">
+            <h2 class="employee_header">JobSeekers</h2>
+            <h3 class="header">Find A Real Online Job</h3>
+                <span class="feature_hint">( work from the comfort of your home )</span>
+                <ul class="no_bullets">
+                    <li class="outlined">Post Your Resume</li>
+                    <li class="outlined">Find A Real Online Job</li>
+                    <li class="outlined">Get Hired By Foreign Companies</li>
+                    <li class="outlined">Choose Freelance, Part-time or Full-time Jobs</li>
+                    <li class="outlined">Bookmark Employers</li>
+                    <li class="outlined">Contact Employers</li>
+                    <li class="outlined">Social Login</li>
+                    <li class="outlined">Personal Youtube Video Pitch</li>
+                    <li class="outlined"><strong>Free Accounts</strong> ( Forever )</li>
+                    <li class="main_signup">
+                        <a class="main_signup" href="{% url 'registration_register' %}" title="Create Your Jobseeker Outsourcing Account">
+                            &raquo; Create Your Jobseeker Account Now &laquo;
+                        </a>
+                    </li>
+                    <li id="landing_promo_video_content_employee">
+                        <video width="289" height="160" id="player2">
+                            <source type="video/mp4" src="{{STATIC_URL}}video/landing_jobseekers.mp4?{{p_static_random}}" />
+                        </video>
+                    </li>
+                </ul>
+        </div>
+    </div>
+{% endblock www_container %}
+
+
+    <div class="signup_main_wrapper">
+        <div class="signup_main">
+          <a href="{% url 'registration_register' %}" title="Try It Out - For Free">
+          <div class="sign_up_text">Try It Out</div>
+          <div class="sign_up_line"></div>
+           Sign up in seconds
+          </a>
+        </div>
+    </div>
+    

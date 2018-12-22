@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="{{LANGUAGE_CODE}}" xml:lang="{{LANGUAGE_CODE}}">
+{% block www_html %}
+
+    <head>
+    {% block www_head %}
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Language" content="en-us" />
+        <title>OutsourceFactor | {% block www_title %}{% endblock www_title %}</title>        
+        <meta name="ROBOTS" content="ALL" />
+        <meta http-equiv="imagetoolbar" content="no" />
+        <meta name="MSSmartTagsPreventParsing" content="true" />
+        <meta name="author" content="Outsource Factor" />
+        <meta name="Copyright" content="Outsourcefactor.com" />
+        {% block fb_meta %}{% endblock fb_meta %}
+        {% block extra_meta %}{% endblock extra_meta %}
+        {% block www_description %}{% endblock www_description %}        
+        {% block www_keywords %}{% endblock www_keywords %}
+        {% block www_stylesheet %}{% endblock www_stylesheet %}        
+        <link rel="shortcut icon" type="image/ico" href="{{ STATIC_URL }}img/favicon.ico" />
+        {% block www_javascript %}{% endblock www_javascript %}
+        {% block extra_head %}{% endblock extra_head %}
+
+    {% endblock www_head %}
+    </head>
+    
+    <body>
+    {% block www_body %}
+    
+        <div id="header">
+        {% block www_header %}
+        
+            <div id="logo">
+            {% block www_logo %}{% endblock www_logo %}
+            </div>
+            
+            <div id="menu-sub-0">
+            {% block www_navigation %}{% endblock www_navigation %}
+            </div>
+
+        {% endblock www_header %}
+        </div>
+
+        <div id="container">
+        {% block www_container %}
+        
+            {% block www_container_title %}
+                {% block www_notifications %}{% endblock www_notifications %}
+            {% endblock www_container_title %}
+            
+            <div id="content-container">
+            {% block www_content %}
+            {% endblock www_content %}
+            </div>
+        
+        <div style="clear:both;"></div>
+        {% endblock www_container %}
+        </div>
+
+        <div id="footer">
+        {% block www_footer %}{% endblock www_footer %}
+        </div>
+    
+        {% block www_body_extra %}{% endblock www_body_extra %}
+
+    {% endblock www_body %}
+    </body>
+
+{% endblock www_html %}
+</html>
+
+

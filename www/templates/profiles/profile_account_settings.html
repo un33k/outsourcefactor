@@ -1,0 +1,19 @@
+{% extends "profiles/base_3col.html" %}
+
+{% block www_title %}{{block.super}} -- {% trans "Account Settings" %} [{{request.user.get_profile.full_name}}]{% endblock www_title %}
+
+{% block www_content_box_1_2 %}
+<div id="account-settings">
+    <form class="main_form" action="" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+        <fieldset>
+            <legend>{% trans "Change Password" %}</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <input type="submit" value="{% trans "Change Password" %}" />
+    </form>
+
+    {% include "profiles/profile_delete_account.html" %}
+
+</div>
+
+{% endblock www_content_box_1_2 %}

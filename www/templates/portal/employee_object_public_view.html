@@ -1,0 +1,34 @@
+{% extends "base/base_2col.html" %}
+
+{% block www_title %}Jobseeker Profile - {{profile.full_name}} - {{profile.title}}{% endblock www_title %}
+
+{% block www_description %}
+    <meta name="description" content="Get hired by an international company. Work from the comfort of your home. Post your resume and apply for home based jobs. Our free training book will amaze you." />
+{% endblock www_description %}
+
+{% block fb_meta %}
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="{{ COMMON_DOWNLOADABLE_STATIC_URL }}images/flags/{{this_user.get_profile.country|lower}}_64.png" />
+    <meta property="og:site_name" content="OutsourceFacotr" />
+    <meta property="og:video:height" content="640" />
+    <meta property="og:video:width" content="385" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video" content="{{STATIC_URL}}video/landing_jobseekers.mp4" />
+    <meta property="og:title" content="Jobseeker Profile - {{profile.full_name}} - {{profile.title}}"/>
+    <meta property="og:description" content="Home based jobs working from your own country. Our free ebook teaches you how to find the best online job. Employers on OutsourceFactor want to hire people in your country. It's easy to create your online profile and browse jobs "/>
+    <meta property="fb:app_id" content="377544715590279"/>
+
+{% endblock fb_meta %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1 %}
+    {% include "employee/employee_profile_public_view.html" %}
+{% endblock www_content_box_1 %}
+
+{% block www_content_box_2 %}
+    {% include "employee/employee_action_public_view.html" %}
+{% endblock www_content_box_2 %}

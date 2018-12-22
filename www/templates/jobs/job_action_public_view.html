@@ -1,0 +1,52 @@
+
+<div id="single_object_action_view">
+    <span class="single_object_action_title">Job Post Activities</span>
+    {% if this_user.get_profile.is_enabled %}
+        <div class="nobr border_tb">
+            <span class="email_to_icon"></span> 
+            <a rel="nofollow" class="email" href="mailto:?subject={{job.title}} at {{job.user.get_profile.business}}&amp;body=I found this job on {{p_project_name}} Job Search:%0d%0a%0d%0a{{job.title}} at {{job.user.get_profile.business}}%0d%0a{{p_domain_base}}{% url 'employer_jobs_public_view' pk=job.id slug=job.get_slug %}%0d%0a%0d%0a{{job.description|truncatewords:50}} ..." target="_blank">
+                email job to a friend
+            </a>
+        </div>
+        <div class="nobr border_tb">
+            <span class="view_business_icon"></span> 
+            <a rel="nofollow" href="{% url 'employer_profile_public_view' pk=profile.id slug=profile.get_slug %}">
+                {% if request.user == this_user and request.user.is_authenticated %}
+                    view your profile                          
+                {% else %}
+                    view employer's profile
+                {% endif %}
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="nobr border_tb">
+        {% if request.user.is_authenticated %}
+            {% with request.user|is_bookmarked:job as bookmarked %}
+                {% if not bookmarked %}
+                    <span class="favorites_icon_add"></span>
+                    <a rel="nofollow" id="{{job.id}}" href="{% url 'bookmark_add_job_ajax' %}" class="post_link_bookmark_job_add">
+                            add job to favorites
+                    </a>
+                {% else %}
+                    <span class="favorites_icon_del"></span>
+                    <a rel="nofollow" id="{{job.id}}" href="{% url 'bookmark_del_job_ajax' %}" class="post_link_bookmark_job_del">
+                        remove job from favorites
+                    </a>
+                {% endif %}
+            {% endwith %}
+        {% else %}
+            <span class="favorites_icon_add"></span>
+            <a rel="nofollow" id="{{job.id}}" href="{% url 'auth_login' %}" class="login_required_or_signup">
+                add job to favorites
+            </a>
+        {% endif %}
+    </div>
+    <div class="action_plus_like">
+        <span class="fb-like-box">
+            <div class="fb-like" data-send="true" data-layout="button_count" data-width="245" data-show-faces="false" data-font="verdana"></div>
+        </span>
+    </div>
+</div>
+
+

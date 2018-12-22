@@ -1,0 +1,19 @@
+{% extends "base/base_2col.html" %}
+
+{% block www_title %}Business Profile - {{profile.business}}{% endblock www_title %}
+
+{% block www_description %}
+    <meta name="description" content="Get a free business listing on OutsourceFactor. Browse resumes and hire offshore employees. Download our incredible outsourcing guide for free." />
+{% endblock www_description %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1 %}
+    {% include "employer/employer_profile_public_view.html" %}
+{% endblock www_content_box_1 %}
+
+{% block www_content_box_2 %}
+    {% include "employer/employer_action_public_view.html" %}
+{% endblock www_content_box_2 %}

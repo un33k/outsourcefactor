@@ -1,0 +1,38 @@
+
+<div class="public_header">
+    Employment Info&nbsp;&nbsp;&nbsp;
+    {% if not is_public_view %}
+    <a class="tooltip" href="{% url 'employee_profile_edit_details' %}">
+        {% if employment_dict %}
+            <img src="{{STATIC_URL}}img/edit.png" />
+            <span class="ui-widget ui-widget-content ui-corner-all forward">
+                Edit skill details
+            </span>
+        {% else %}
+            <img src="{{STATIC_URL}}img/add.gif" />
+            <span class="ui-widget ui-widget-content ui-corner-all forward">
+                Add new skill
+            </span>
+        {% endif %}                
+    </a>
+    {% endif %}
+</div>
+
+{% if employment_dict %}
+    <table class="tree-browser">
+    {% for field in employment_dict %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td class="lable">{{ field.lable }}:</td>
+            <td class="value">{{ field.value }}</td>
+            {% if request.user.is_authenticated and request.user == this_user and field.help %}
+                <td class="details image">
+                    <a href="javascript:void(0)" class="tooltip"><img src="{{STATIC_URL}}img/info.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">{{ field.help }}</span>
+                    </a>
+                </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+

@@ -1,0 +1,218 @@
+{% extends "base/base_3col.html" %}
+
+{% block www_title %}Hire Offshore Talent & Virtual Staff{% endblock www_title %}
+
+{% block www_description %}
+    <meta name="description" content="Find talented offshore employees for your company.  Post jobs and browse resumes for free.  Our free ebook teaches you how to hire the best talent." />
+{% endblock www_description %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1_1 %}
+    <form id="talent_search_form" class="search_form" action="{% url 'portal_talent_search' %}" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+        <fieldset>
+            {{ form.as_p }}
+        </fieldset>
+        <input style="float:left" type="submit" value="{% trans "Search" %}" />
+        <a href="{% url 'portal_talent_search' %}" class="gray-button reset-button">Reset</a>
+    </form>
+    <br/><br/>
+    <div class="fb-like-box" data-href="http://www.facebook.com/outsourcefactor" data-width="186" data-height="480" data-show-faces="true" data-border-color="#D7D7D7" data-stream="false" data-header="false"></div>
+    
+{% endblock www_content_box_1_1 %}
+
+{% block www_content_box_1_2 %}
+
+    {% if employees %}
+        <div class="search_list">
+
+            <div id="pagination_search_north">
+                <span class="step-links-top">
+                    {% if employees.has_previous %}
+                        <a class="post_link " href="{% url 'portal_talent_search_paginate' sp=employees.previous_page_number %}">
+                            <img src="{{ STATIC_URL }}img/prev.png">
+                        </a>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}img/prev-gray.png">
+                    {% endif %}
+
+
+                    {% if employees.has_next %}
+                        <a class="post_link" href="{% url 'portal_talent_search_paginate' sp=employees.next_page_number %}">
+                            <img src="{{ STATIC_URL }}img/next.png">
+                        </a>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}img/next-gray.png">
+                    {% endif %}                
+                </span>
+                <span class="current-page-top">
+                    {% if request.user.is_authenticated and request.user.is_staff %}({{total_result|intcomma}} talent{{total_result|pluralize:",s"}}) -- {% endif %} [Page {{ employees.number }} of {{ employees.paginator.num_pages|roundplus }}]
+                </span>
+            </div>
+
+            <ul class="browse_talent">
+            {% for e in employees %}
+                <li class="e_block_talent border">
+                        <div class="gravatar_talent_search">
+                        <a href="{% url 'employee_profile_public_view' pk=e.id slug=e.get_slug  %}" class="tooltip">
+                            <div class="">
+                                {% gravatar_img_for_user e.user 30%}
+                            </div>
+                            <span class="ui-widget ui-widget-content ui-corner-all forward">
+                                {% gravatar_img_for_user e.user.username 120 %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gravatar.com
+                            </span>
+                        </a>
+                        </div>
+                    <div class="nobr">
+                        <span class="faded_talent">Title: </span>
+                        <a class="e_title" href="{% url 'employee_profile_public_view' pk=e.id slug=e.get_slug  %}" target="_blank">
+                            {{ search_kw|highlight:e.title }} 
+                        </a>
+                    </div>
+                    <div class="nobr">  
+                        <span class="faded_talent">Name: </span>
+                        <span class="e_full_name">
+                            {{ search_kw|highlight:e.full_name }}
+                        </span>
+                    </div>
+                    <div class="nobr">  
+                        <span class="faded_talent">Demographic: </span>
+                        <span class="e_demographic">
+                            <img class="search_small_flags" src="{{ COMMON_DOWNLOADABLE_STATIC_URL }}images/flags/{{e.country|lower}}_16.png">
+                            {{ e.get_country_display }}
+                            <img class="search_small_user" src="{{ STATIC_URL }}img/{{e.get_gender_display|lower}}_16.png">
+                            {{ e.get_gender_display }} 
+                        </span>
+                    </div>
+                    <div class="nobr">
+                        <span class="faded_talent">Availability: </span>
+                        <span class="e_last_updated">
+                            {{ e.get_hours_per_week_display }}
+                        </span>
+                    </div>
+                    <div class="nobr">
+                        <span class="faded_talent">Monthly Salary: </span>
+                        <span class="e_last_updated">
+                            {{ e.desired_salary|get_convert_currency:e.currency }} 
+                            <span class="talent_salary_monthly">( @ {{ e.get_hours_per_week_display }} )</span>
+                        </span>
+                    </div>
+                    {% if request.user.is_superuser %}
+                        <div class="nobr">
+                            <span class="faded_talent">Last activity: </span>
+                            <span class="e_last_updated">
+                                {{ e.user.last_login|naturaltime }}
+                            </span>
+                        </div>  
+                    {% endif %}
+                    <div class="nobr">
+                        <div class="faded_talent">Contact info: </div>
+                        <span class="e_contact_info">
+                            <div class="contact_info">
+                                <span class="contact_info_icon"></span>
+                                {% if request.user.is_authenticated %}
+                                    <a id="{{e.user.username}}" href="{% url 'profile_get_contact_info' %}" class="post_link_contact_info">
+                                        Click2View
+                                    </a>                            
+                                {% else %}
+                                    <a id="{{e.user.username}}" href="{% url 'auth_login' %}" class="login_required_or_signup">
+                                        Click2View
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </span>
+                    </div>
+
+                    {% with e.user|get_skills:skill_info as skills %}
+                        {% if skills %}
+                            <table class="tree-browser">
+                            {% for skill in skills %}
+                                <tr class="{% cycle 'even' 'even' %}">
+                                    <td class="skill_category">{{ search_kw|highlight:skill.skill.category.name }}</td>
+                                    <td class="skills"><span class="skill_div">|</span> {{ search_kw|highlight:skill.skill.name }}</td>
+                                    <td class="skills image "><div class="stars rating-{{ skill.level }}"></div></td>
+                                    <td class="skill image">
+                                        <a href="javascript:void(0)" class="tooltip help_cursor">
+                                            <img src="{{STATIC_URL}}img/info.png" />
+                                            <span class="ui-widget ui-widget-content ui-corner-all backward xlarge">
+                                                {{ skill.get_level_display }}
+                                                <br/>---------------<br/><br/>
+                                                <strong>Details: </strong>
+                                                {% if skill.detail %}{{ skill.detail }}{% else %}No details{% endif %}
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        {% endif %}  
+                    {% endwith %}  
+                </li>
+            {% endfor %}
+            </ul>
+            
+            <br/>
+            <div id="pagination_search_south">
+                <span class="current-page-bottom">
+                    [Page {{ employees.number }} of {{ employees.paginator.num_pages|roundplus }}]
+                </span>
+                <span class="step-links-bottom">
+                    {% if employees.has_previous %}
+                        <a class="post_link " href="{% url 'portal_talent_search_paginate' sp=employees.previous_page_number %}">
+                            <img src="{{ STATIC_URL }}img/prev.png">
+                        </a>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}img/prev-gray.png">
+                    {% endif %}
+
+
+                    {% if employees.has_next %}
+                        <a class="post_link" href="{% url 'portal_talent_search_paginate' sp=employees.next_page_number %}">
+                            <img src="{{ STATIC_URL }}img/next.png">
+                        </a>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}img/next-gray.png">
+                    {% endif %}                
+                </span>
+            </div>
+            
+        </div>
+        
+    {% else %}
+        {% if specific_search %}
+            <br/><br/>No match found for your search criteria. Please reset and try again.<br/><br/><hr/>
+        {% else %}
+            <br/><br/>
+        {% endif %}
+        <h2>Find the Right People with the Right Skills</h2>
+        <br/>
+        <p>Our talent search engine is <strong>Clean, Simple and Fast</strong>. It's also completely free to use. Search by skill or keyword. Narrow your results with many of our built-in filters.</p>
+
+        <p><br/><strong>Keyword search examples:</strong>&nbsp;&nbsp;(case insensitive)<br/>wordpress&nbsp;&nbsp;blog = search for both <u>wordpress AND blog</u> in any order<br/>wordpress&nbsp;&nbsp;-blog = search for only <u>wordpress AND NOT blog</u> in any order<br/>"wordpress&nbsp;&nbsp;admin" = search for <u>wordpress&nbsp;&nbsp;admin</u> together, in this exact order</p>
+
+    {% endif %} 
+        
+{% endblock www_content_box_1_2 %}
+
+{% block www_content_box_2 %}
+    <div class="likeplus_top_right_linx">
+        <span class=" fb-like-box">
+        <div class="fb-like" data-href="{{p_domain_base}}" data-send="true" data-layout="button_count" data-width="158" data-show-faces="false" data-font="verdana"></div>
+        </span>
+    </div>
+    <div id="ads_box_right">
+        {% if request.user.is_authenticated %}
+            <a target="_blank" class="send2friend" href="mailto:?subject=Find online offshore talents at Outsourcefactor&amp;body=I found this job site useful and thought you might like it as well.%0d%0a%0d%0aIt has a lot of features including:%0d%0a%0d%0a+ Post Jobs%0d%0a+ Talent Search%0d%0a+ Bookmark Candidates%0d%0a+ Contact Candidates%0d%0a+ Social Login%0d%0a+ Youtube Video Pitch%0d%0a+ Access Training%0d%0a+ Free Accounts%0d%0a%0d%0aHere is the link:%0d%0a{{p_domain_base}}%0d%0a%0d%0aCheck it out today!">
+                <img class="signup_ad"src="{{ STATIC_URL }}img/ads/employer_send2friends_160.gif" />
+            </a>
+        {% else %}
+            <a href="{% url 'registration_register' %}" class="">
+                <img class="signup_ad"src="{{ STATIC_URL }}img/ads/employer_signup_160.gif" />
+            </a>        
+        {% endif %}
+    </div>
+{% endblock www_content_box_2 %}
+

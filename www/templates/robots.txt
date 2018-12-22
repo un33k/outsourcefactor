@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /auth/
+Disallow: /signup/
+Disallow: /profiles/
+Disallow: /site/terms/
+Disallow: /site/privacy/
+Disallow: /contact/
+Allow: /

@@ -1,0 +1,79 @@
+
+
+<div class="single_object_view">
+
+    <div class="bookmark_title">Your Favorite Bookmarks</div>
+
+    <div id="accordion">
+        {% if job_bookmarks %}
+            {% for bm in job_bookmarks %}
+                <h3><a href="#"><strong>[ JOB ]: {{bm.content_object.title}}</strong></a></h3>
+                <div>
+                    <strong>Business: </strong>{{bm.content_object.user.get_profile.business}}<br/><br/>
+                    <strong>Job Description:</strong><br/>
+                    {{bm.content_object.description}}<br/>
+                    <div class="bookmark_items_more">
+                        <a href="{% url 'bookmark_del_job' pk=bm.content_object.id %}" target="_blank" class="confirm post_link">
+                            <img class="del_bookmark_img" src="{{STATIC_URL}}img/minus_circle.png" title="Delete job from your favorites"/>
+                        </a> 
+                        <a href="{% url 'employer_jobs_public_view' pk=bm.content_object.id slug=bm.content_object.get_slug %}" target="_blank">
+                           view job post
+                        </a> 
+                    </div>
+                </div>          
+            {% endfor %}
+            <br/><br/>
+        {% endif %}
+        
+        {% if profile_bookmarks %}
+            {% for bm in profile_bookmarks %}
+                {% if bm.content_object.is_employer %}
+                    <h3><a href="#"><strong>[ Business ]: {{bm.content_object.business}}</strong></a></h3>
+                    <div>
+                    {% if bm.content_object.about %}
+                        <strong>About Us:</strong><br/>
+                        {{bm.content_object.about|linebreaks}}<br/>
+                    {% endif %}
+                    <div class="bookmark_items_more">
+                        <a href="{% url 'bookmark_del_profile' pk=bm.content_object.id %}" target="_blank" class="confirm post_link">
+                            <img class="del_bookmark_img" src="{{STATIC_URL}}img/minus_circle.png" title="Delete profile from your favorites"/>
+                        </a> 
+                        <a href="{% url 'employer_profile_public_view' pk=bm.content_object.id slug=bm.content_object.get_slug  %}" target="_blank">
+                            view employer's profile
+                        </a>
+                    </div>
+                </div>    
+                {% endif %}
+            {% endfor %}
+            <br/><br/>
+            {% for bm in profile_bookmarks %}
+                {% if bm.content_object.is_employee %}
+                    <h3><a href="#"><strong>[ Jobseeker ]: {{bm.content_object.title}}</strong></a></h3>
+                    <div>
+                    <strong>Name: </strong>{{bm.content_object.full_name}}<br/><br/>
+                    {% if bm.content_object.about %}
+                        <strong>About Me:</strong><br/>
+                        {{bm.content_object.about|linebreaks}}<br/>
+                    {% endif %}
+                    <div class="bookmark_items_more">
+                        <a href="{% url 'bookmark_del_profile' pk=bm.content_object.id %}" target="_blank" class="confirm post_link">
+                            <img class="del_bookmark_img" src="{{STATIC_URL}}img/minus_circle.png" title="Delete profile from your favorites"/>
+                        </a> 
+                        <a href="{% url 'employee_profile_public_view' pk=bm.content_object.id slug=bm.content_object.get_slug  %}" target="_blank">
+                           view jobseeker's profile
+                        </a> 
+                    </div>
+                </div>    
+                {% endif %}
+            {% endfor %}
+            
+        {% endif %}
+        
+    </div>
+
+    {% if not profile_bookmarks and not job_bookmarks %}
+        <span class="empty_bookmarks">Empty!</span>
+    {% endif %}
+    
+</div>
+

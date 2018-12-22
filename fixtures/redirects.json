@@ -1,0 +1,200 @@
+[
+  {
+    "pk": 23,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://www.affilorama.com/affiloblueprint?aff=katliv",
+      "site": 1,
+      "old_path": "/affiloblueprint"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "https://www.secureinfossl.com/affProgram/Evergreen-Business-System-Affiliate-Program/57759",
+      "site": 1,
+      "old_path": "/autowebinar"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://www.aweber.com/?323713",
+      "site": 1,
+      "old_path": "/aweber"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://blog.outsourcefactor.com",
+      "site": 1,
+      "old_path": "/blog"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://www.bluehost.com/track/katliv",
+      "site": 1,
+      "old_path": "/bluehost"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://blog.outsourcefactor.com/several-easy-ways-to-create-pretty-or-cloaked-affiliate-links/",
+      "site": 1,
+      "old_path": "/cloaking"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://www.DigitalAccessPass.com/dap/a/?a=12462",
+      "site": 1,
+      "old_path": "/dap"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://blog.outsourcefactor.com/?p=109",
+      "site": 1,
+      "old_path": "/digitaldownloads"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://www.dlguard.com/info/?a=emaclj&tid=osf-shorturl",
+      "site": 1,
+      "old_path": "/dlg"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "https://www.secureinfossl.com/affProgram/Evergreen-Business-System-Affiliate-Program/57759",
+      "site": 1,
+      "old_path": "/ebs"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://forum.outsourcefactor.com",
+      "site": 1,
+      "old_path": "/forum"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://nanacast.com/vp/97647/245835/",
+      "site": 1,
+      "old_path": "/op"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://forum.outsourcefactor.com/",
+      "site": 1,
+      "old_path": "/questions"
+    }
+  },
+  {
+    "pk": 24,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://go.skimlinks.com/?id=33860X916884&xs=1&url=http://skimlinks.com",
+      "site": 1,
+      "old_path": "/skimlinks"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://blog.outsourcefactor.com/?p=232",
+      "site": 1,
+      "old_path": "/split"
+    }
+  },
+  {
+    "pk": 18,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://affl.sucuri.net/?affl=9fba4d96ade67b26ad381ebbbfa8d4bb",
+      "site": 1,
+      "old_path": "/sucuri"
+    }
+  },
+  {
+    "pk": 19,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://www.timedoctor.com/affiliates/idevaffiliate.php?id=107",
+      "site": 1,
+      "old_path": "/timedoctor"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://visualwebsiteoptimizer.com/?partner=88CQMU",
+      "site": 1,
+      "old_path": "/vwo"
+    }
+  },
+  {
+    "pk": 22,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://www.webfaction.com?affiliate=cumiastowski",
+      "site": 2,
+      "old_path": "/webfaction"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://blog.outsourcefactor.com/the-automated-webinar-tutorial-youve-always-wanted/",
+      "site": 1,
+      "old_path": "/webinar"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://member.wishlistproducts.com/wlp.php?af=1405317",
+      "site": 1,
+      "old_path": "/wishlist"
+    }
+  },
+  {
+    "pk": 20,
+    "model": "redirects.redirect",
+    "fields": {
+      "new_path": "http://wpengine.com?a_aid=4f99b9874c7a2",
+      "site": 1,
+      "old_path": "/wpengine"
+    }
+  }
+]

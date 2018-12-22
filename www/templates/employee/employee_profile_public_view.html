@@ -1,0 +1,42 @@
+
+
+<div class="single_object_view">    
+    
+    <div class="nobr"><span class="public_jobseeker_header">{{this_user.get_profile.title}}</span></div>
+    
+    {% if this_user.get_profile.is_enabled %}
+        <span class="gravatar-public">
+            <a href="javascript:void(0)" class="tooltip">{% gravatar_img_for_user this_user.username 42 %}
+                <span class="ui-widget ui-widget-content ui-corner-all forward">
+                    {% gravatar_img_for_user this_user.username 120 %}<br/>                              
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gravatar.com
+                </span>
+            </a>
+            <a href="javascript:void(0)" class="tooltip">
+                <img id="public_profile_country_flag" src="{{ COMMON_DOWNLOADABLE_STATIC_URL }}images/flags/{{this_user.get_profile.country|lower}}_64.png">
+                <span class="ui-widget ui-widget-content ui-corner-all forward">{{this_user.get_profile.get_country_display}}</span>
+            </a>
+        </span>
+
+        {% include "profiles/common_profile_view.html" %}
+        {% include "profiles/employee_employment_view.html"%}
+        {% include "profiles/employee_skill_view.html" %}
+
+        <a name="YT"></a>
+        {% with this_user|get_youtube_video as youtube_asset %}
+            {% if youtube_asset %}
+            <div class="public_header">Video Profile</div>
+            <div class="video_pitch_large">
+                <video width="550" height="360" id="player1"> 
+                    <source type="video/youtube" src="{{youtube_asset.website}}" />
+                </video>
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        {% include "profiles/common_social_view.html" %}
+        
+    {% else %}
+        <span class="account_inactive">Profile Hidden</span>
+    {% endif %}
+</div>

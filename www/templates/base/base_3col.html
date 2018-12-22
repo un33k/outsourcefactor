@@ -1,0 +1,18 @@
+{% extends "base/base.html" %}
+
+{% block www_content %}
+    <div id="col3_content_box_1">
+        {% block www_content_box_1 %}
+            <div id="col3_content_box_1_1">
+                {% block www_content_box_1_1 %}{% endblock www_content_box_1_1 %}
+            </div>
+            <div id="col3_content_box_1_2">
+                {% block www_content_box_1_2 %}{% endblock www_content_box_1_2 %}
+            </div>
+        {% endblock www_content_box_1 %}
+    </div>
+    <div id="col3_content_box_2">
+        {% block www_content_box_2 %}{% endblock www_content_box_2 %}
+    </div>
+{% endblock www_content %}
+
