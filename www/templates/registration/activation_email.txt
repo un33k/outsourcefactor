@@ -1,0 +1,15 @@
+
+
+{% blocktrans %}Thank you for registering an account at {% endblocktrans %}{{ site.domain }}.
+{% blocktrans %}To activate your account, please visit the following page:{% endblocktrans %}
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+{% blocktrans %} This page will expire in {{ expiration_days }} day(s).{% endblocktrans %}
+
+***
+
+{% blocktrans %} If you didn't register this account you can simply delete this email and we won't bother you again.{% endblocktrans %}
+
+The OutsourceFactor Team!
+

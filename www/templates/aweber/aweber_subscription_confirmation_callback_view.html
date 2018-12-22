@@ -1,0 +1,32 @@
+{% extends "base/base_3col.html" %}
+
+{% block www_title %}{% trans "Signup Confirmation Sent" %}{% endblock www_title %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+
+{% block www_content_box_1_2 %}
+    <br/><br/><br/><br/>
+    <h2>Please check your email now.</h2>
+    <br />
+    <p>A confirmation link has been sent to <b>{{email}}</b>, along with instructions for activating your free account.</p>
+    <p><u>Please check your <b>spam</b> folder as well.</u></p>
+    <p><b>Note: </b>Sometimes it can take up to 5 minutes for the email to arrive!</p>
+    {% if not new_user %}
+        <br/>
+        {% if not profile.user.is_active %}
+            <p>If you have already deleted or lost the message, you can signup again with a different email address</p>
+            <br/>
+        {% else %}
+            <p>Your account is already active! You can" %} <a href="{% url 'auth_login' %}"><b>Login</b></a> now.</p>
+            <p>If you forgot your password! You can <a href="{% url 'auth_password_reset' %}">reset your password?</a>&nbsp;&nbsp;&nbsp;</p>
+        {% endif %}
+    {% endif %}
+        
+{% endblock www_content_box_1_2 %}
+
+
+
+

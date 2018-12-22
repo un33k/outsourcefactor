@@ -1,0 +1,33 @@
+
+
+<div class="account_content">
+    <div class="nobr"><span class="public_company_name">{{profile.business}}</span></div>
+
+    <div class="header">
+        <a class="tooltip user-profile-public-view gray-button" target="_blank"
+           href="{% url 'employer_profile_public_view' pk=user.get_profile.id slug=user.get_profile.get_slug  %}">
+           Public View <img class="public_eye_view" src="{{STATIC_URL}}img/eye.png" />
+            <span class="ui-widget ui-widget-content ui-corner-all forward">
+                {% trans "Your business public profile as seen by others" %}
+            </span>
+        </a>
+    </div>
+
+    {% include "profiles/common_profile_view.html"%}
+    {% include "profiles/common_contact_view.html"%}
+    {% include "profiles/employer_job_view.html"%}
+
+    {% with this_user|get_youtube_video as youtube_asset %}
+        {% if youtube_asset %}
+        <div class="public_header">Video Profile</div>
+        <div class="video_pitch_large">
+            <video width="550" height="360" id="player1"> 
+                <source type="video/youtube" src="{{youtube_asset.website}}" />
+            </video>
+        </div>
+        {% endif %}
+    {% endwith %}
+    
+    {% include "profiles/common_social_view.html"%}
+
+</div>

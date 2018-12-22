@@ -1,0 +1,16 @@
+
+<h1 id="delete_account_header">Delete Account</h1>
+
+<div id="delete_account_box">    
+    <p>Once you delete your account, <b>there is no going back</b>. Please be certain.</p>
+    <p>Are you sure you don't want to just <a href="{% url 'profile_edit_details' %}">hide your account</a> instead? We won't show your information anymore!</p>
+    <br/>
+    
+    <a id="del_acc_link" class="confirm post_link tooltip" href="{% url 'profile_delete_account' request.user.id %}">
+        <img src="{{ STATIC_URL }}img/del_account_button.png" />
+       <span class="ui-widget ui-widget-content ui-corner-all forward">
+            {% trans "Please keep in mind that deleting your account is permanent and will delete your profile and all your information forever. Please be certain!" %}
+        </span>
+    </a>
+    <br/>
+</div>

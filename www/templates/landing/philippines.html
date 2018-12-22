@@ -1,0 +1,65 @@
+{% extends "base/base_1col.html" %}
+
+{% block www_title %}Home based jobs In The Philippines. Get hired by an international company{% endblock www_title %}
+
+{% block www_description %}
+    <meta name="description" content="Home based jobs In The Philippines.  Our free ebook teaches you how to find the best online job." />
+{% endblock www_description %}
+
+{% block fb_meta %}        
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="{{ STATIC_URL }}img/logo.png" />
+    <meta property="og:site_name" content="OutsourceFacotr" />
+    <meta property="og:video:height" content="356" />
+    <meta property="og:video:width" content="208" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="fb:app_id" content="377544715590279"/>
+    <meta property="og:title" content="Home based jobs In The Philippines. Get hired by an international company"/>
+    <meta property="og:description" content="Home based jobs in the Philippines. Our free ebook teaches you how to find the best online job. Employers on OutsourceFactor want to hire people in Philippines. It's easy to create your online profile and browse jobs "/>
+    <meta property="og:video" content="{{STATIC_URL}}video/landing_jobseekers.mp4" />
+{% endblock fb_meta %}
+
+{% block www_container %}
+
+    {% block www_container_title %}
+        {% include "portal/submenu.html" %}
+    {% endblock www_container_title %}
+
+    <h1 class="headline">Home based jobs in the Philippines</h1>
+    <p class="ph_top_reason_about">Get hired by an international company</p>
+    <div id="top-container" class="group">  
+        
+        <div id="landing_promo_video_imac">
+            <div id="landing_promo_video_content">
+                <video width="356" height="208" id="player1"> 
+                    <source type="video/mp4" src="{{STATIC_URL}}video/landing_jobseekers.mp4?{{p_static_random}}" />
+                </video>
+            </div>
+        </div>
+        
+        <div id="jobseeker_reason_to_join">
+            <h3 class="header">Top reasons on why you should join OutsourceFactor</h3>
+            <ul>
+                <li class="top_reasons">Completely FREE to use by Jobseekers</li>
+                <li class="top_reasons">Free report teaches you exactly how to get a job</li>
+                <li class="top_reasons">Employers on OutsourceFactor want to hire people in the Philippines</li>
+                <li class="top_reasons">It's easy to create your online profile and browse jobs</li>
+            </ul>
+            <br/>
+            <div class="signup_main_wrapper">
+                <div class="signup_main">
+                  <a href="{% url 'registration_register' %}" title="Try It Out - For Free">
+                  <div class="sign_up_text">Try It Out</div>
+                  <div class="sign_up_line"></div>
+                   Sign up in seconds
+                  </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+
+
+{% endblock www_container %}
+    

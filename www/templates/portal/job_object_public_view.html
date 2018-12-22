@@ -1,0 +1,19 @@
+{% extends "base/base_2col.html" %}
+
+{% block www_title %}JobPost - {{job.title}} at {{profile.business}}{% endblock www_title %}
+
+{% block www_description %}
+    <meta name="description" content="OutsourceFactor lets you post jobs for free.  Recruit talented offshore employees.  Learn effective outsourcing strategies with out free training." />
+{% endblock www_description %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1 %}
+    {% include "jobs/job_object_public_view.html" %}
+{% endblock www_content_box_1 %}
+
+{% block www_content_box_2 %}
+    {% include "jobs/job_action_public_view.html" %}
+{% endblock www_content_box_2 %}

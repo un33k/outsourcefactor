@@ -1,0 +1,48 @@
+
+
+<div class="public_header">
+    {% if is_public_view %}
+        {% if skills %}
+            Skill Info&nbsp;&nbsp;&nbsp;
+        {% endif %}
+    {% else %}
+        Skill Info&nbsp;&nbsp;&nbsp;
+        <a class="tooltip" href="{% url 'employee_skill_list' %}">
+            {% if skills %}
+                <img src="{{STATIC_URL}}img/edit.png" />
+                <span class="ui-widget ui-widget-content ui-corner-all forward">
+                    Edit skill details
+                </span>
+            {% else %}
+                <img src="{{STATIC_URL}}img/add.gif" />
+                <span class="ui-widget ui-widget-content ui-corner-all forward">
+                    Add new skill
+                </span>
+            {% endif %}                
+        </a>
+    {% endif %}
+</div>
+
+{% if skills %}
+    <table class="tree-browser">
+        {% for skill in skills %}
+            <tr class="{% cycle 'odd' 'even' %}">
+                <td class="category">{{ skill.skill.category }}</td>
+                <td class="skills">{{ skill.skill }}</td>
+                <td class="skills image "><div class="stars rating-{{ skill.level }}"></div></td>
+                <td class="skill image">
+                    <a href="javascript:void(0)" class="tooltip help_cursor">
+                        <img src="{{STATIC_URL}}img/info.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all center large">
+                            {{ skill.get_level_display }}
+                            <br/>---------------<br/><br/>
+                            <strong>Details: </strong>
+                            {% if skill.detail %}{{ skill.detail }}{% else %}No details{% endif %}
+                        </span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}  
+   

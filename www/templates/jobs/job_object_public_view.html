@@ -1,0 +1,51 @@
+
+
+<div class="single_object_view">
+
+    <div class="nobr"><span class="public_job_title">{{job.title}}</span></div>
+    <div class="nobr"><span class="public_job_company_name">{{profile.business}}</span></div>
+
+    <div id="job_post_details">
+        This is a <u>{{job.get_employment_option_display|upper}}</u> job, salary is <u>{{job.get_wage_salary_display|upper}}{% if job.employment_option != job.JOB_OPTION_FREELANCE and "USD" in job.get_wage_salary_display%} PER MONTH{% endif %}</u>, and the start date is 
+        <u>{% if job.is_past_due %}IMMEDIATELY{% else %}{{job.start_date|upper}}{% endif %}</u>.
+    </div>
+                
+    <div class="public_header">Description</div>
+    <div class="justify public_job_description">{{job.description|linebreaks}}</div>
+    
+    {% if job.requirements %}
+        <div class="public_header">Requirements</div>
+        <div class="public_job_requirements"><p>{{job.requirements|linebreaks}}</p></div>
+    {% endif %}
+
+    
+    <div class="public_header">Contact</div>
+    {% if request.user.is_authenticated %}
+        <a id="job_{{job.id}}" href="{% url 'employer_get_job_contact_info' %}" class="post_link_job_contact_info">
+            view contact info
+        </a>                            
+    {% else %}
+        <a id="job_{{job.id}}" href="{% url 'auth_login' %}" class="login_required_or_signup">
+            view contact info
+        </a>
+    {% endif %}
+
+    
+    {% with this_user|get_youtube_video as youtube_asset %}
+        {% if youtube_asset %}
+            <div class="public_header">Video Profile</div>
+            <div class="video_pitch_large">
+                <video width="550" height="360" id="player1"> 
+                    <source type="video/youtube" src="{{youtube_asset.website}}" />
+                </video>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% if profile.about %}
+        <div class="public_header">About {{profile.business}}</div>
+        <div class="public_job_company_about"><p>{{profile.about|linebreaks}}</p></div>
+    {% endif %}
+        
+</div>
+

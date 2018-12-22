@@ -1,0 +1,68 @@
+{% extends "profiles/base_3col.html" %}
+
+
+{% block www_title %}{{block.super}} -- {% trans "Edit Skill Details " %} [{{request.user.username}}]{% endblock www_title %}
+
+
+{% block www_content_box_1_2 %}
+<div id="list_management">
+    {% if not skills %}
+    
+        <br/>
+        <p class="justify">
+            <strong>Note:</strong> You NEED to add <u>at least</u> one skill in order to complete your profile.
+        </p>
+    
+    {% else %}
+    <div class="list-header">Skill List</div>
+    <table class="tree-browser">
+        {% for skill in skills %}
+            <tr class="{% cycle 'odd' 'even' %}">
+                <td class="category">{{ skill.skill.category }}</td>
+                <td class="skills">{{ skill.skill }}</td>
+                <td class="skills image "><div class="stars rating-{{ skill.level }}"></div></td>
+                <td class="skill image">
+                    <a href="javascript:void(0)" class="tooltip help_cursor">
+                        <img src="{{STATIC_URL}}img/info.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all center large">
+                            {{ skill.get_level_display }}
+                            <br/>---------------<br/><br/>
+                            <strong>Details: </strong>
+                            {% if skill.detail %}{{ skill.detail }}{% else %}No details{% endif %}
+                        </span>
+                    </a>
+                </td>
+                <td class="edit image">
+                    <a href="{% url 'employee_update_skill' skill.id %}" class="tooltip">
+                        <img src="{{STATIC_URL}}img/edit.png" />
+
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            Update this kill
+                        </span>
+                    </a>
+                </td>
+                <td class="delete image">
+                    <a href="{% url 'employee_delete_skill' skill.id %}" class="tooltip confirm post_link">
+                        <img src="{{STATIC_URL}}img/minus_circle.png" />
+
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            Delete this skill
+                        </span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    
+    <div id="account-settings">
+        <form class="main_form" action="" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+            <fieldset>
+                <legend>{% trans "Add New Skill" %}</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <input type="submit" value="{% trans "Save" %}" />
+        </form>
+    </div>
+</div>
+{% endblock www_content_box_1_2 %}

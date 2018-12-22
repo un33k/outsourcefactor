@@ -1,0 +1,24 @@
+{% extends "base/base_3col.html" %}
+
+{% block www_title %}{% trans "Account Signup - Get Your Free Account Today" %}{% endblock www_title %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1_2 %}
+    <form class="main_form" action="" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+        <fieldset>
+            <legend>{% trans "Create Your account" %}</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <input type="submit" value="{% trans "Create an Account" %}" />
+         <div class="signup_terms">
+            {% trans "By creating an account you agree to this site's" %}
+            (<a href="{% url 'terms_of_service' %}">{% trans "Terms of Service" %}</a>)
+        </div>
+    </form>
+{% endblock www_content_box_1_2 %}
+
+
+

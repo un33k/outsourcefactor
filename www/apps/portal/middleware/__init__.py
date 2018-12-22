@@ -1,0 +1,1 @@
+from RequestInspector import Prevent404

@@ -1,0 +1,16 @@
+{% extends "base/base_1col.html" %}
+{% block www_title %} Server Error! {% endblock www_title %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1 %}
+        <h1><b>Server Error</b></h1>
+        <p>There's been an error.</p>
+        <br/>
+        <p>
+            It's been reported to the site administrators via e-mail and should be fixed shortly.<br/>
+            Thanks for your patience.
+        </p>
+{% endblock www_content_box_1 %}

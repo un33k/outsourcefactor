@@ -1,0 +1,26 @@
+{% extends "profiles/base_3col.html" %}
+
+{% block www_title %}{{block.super}} -- {% trans "Edit Employee Details " %} [{{request.user.username}}]{% endblock www_title %}
+
+
+{% block www_content_box_1_2 %}
+<div id="account-settings">
+
+    {% if not request.user.get_profile.title %}
+
+        <br/>
+        <p class="justify">
+            <strong>Note:</strong> You NEED to <u>fill out</u> this page in order to complete your profile.
+        </p>
+
+    {% endif %}
+    
+    <form class="main_form" action="" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+        <fieldset>
+            <legend>{% trans "Employment Settings" %}</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <input type="submit" value="{% trans "Save" %}" />
+    </form>
+</div>
+{% endblock www_content_box_1_2 %}

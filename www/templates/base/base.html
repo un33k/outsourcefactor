@@ -1,0 +1,153 @@
+{% extends "base/frame.html" %}
+
+{% block www_title %}{{p_site_title}}{% endblock www_title %}
+
+{% block www_description %}
+    <meta name="description" content="{{p_site_description}}" />
+{% endblock www_description %}
+
+{% block www_keywords %}
+        <meta name="keywords" content="{{p_site_keywords}}" />
+{% endblock www_keywords %}
+
+{% block fb_meta %}
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="{{ STATIC_URL }}img/logo.png" />
+    <meta property="og:site_name" content="OutsourceFacotr" />
+    <meta property="og:video:height" content="640" />
+    <meta property="og:video:width" content="385" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video" content="{{STATIC_URL}}video/landing_promo_video.mp4" />
+    {% if p_country_code.upper in p_job_countries %}
+        <meta property="og:title" content="Home based jobs in {{p_country_alt_name}}. Get hired by an international company"/>
+        <meta property="og:description" content="Home based jobs in {{p_country_alt_name}}. Our free ebook teaches you how to find the best online job. Employers on OutsourceFactor want to hire people in {{p_country_alt_name}}. It's easy to create your online profile and browse jobs "/>
+        <meta property="og:video" content="{{STATIC_URL}}video/landing_jobseekers.mp4" />
+    {% else %}
+        <meta property="og:title" content="Helping Online Entrepreneurs Hire Offshore Talent"/>
+        <meta property="og:description" content="Built for online entrepreneurs seeking growth strategies. Free access to a global talent pool and their resumes. We're more than just a job site, you get top notch training. It's easy to create your free online business profile and post jobs "/>
+    <meta property="fb:app_id" content="377544715590279"/>
+
+    {% endif %}
+{% endblock fb_meta %}
+                           
+{% block www_stylesheet %}
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/main.css?{{p_static_random}}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}mep/mediaelementplayer.min.css" />
+{% endblock www_stylesheet %}
+
+{% block www_javascript %}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}mep/mediaelement-and-player.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/utils.js?{{p_static_random}}"></script>
+{% endblock www_javascript %}
+
+{% block extra_head %}
+
+    <!-- Facebook Like -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+{% endblock extra_head %}
+
+
+{% block www_logo %}
+    <a class="logo" href="{% url 'home_page' %}" title="go to main page" alt="Outsource Factor">
+        <img src="{{ STATIC_URL }}img/logo.png" />
+    </a>
+{% endblock www_logo %}
+
+{% block www_navigation %}
+    <ul id="top_navi">
+        {% if request.user.is_authenticated and not request.user.get_profile.filled_in %}
+            <li id="major_message" ><a class="red" href="{% url 'profile_edit_details' %}">[ please complete your account ]</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all ui-state-hover">
+            {% gravatar_img_for_user request.user 23 %}
+        </li>
+        {% endif %}
+        {% with request|get_navigation_menu as menu %}
+            {% for item in menu %}
+                <li 
+                    {% if item.selected %} 
+                        class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all ui-state-active" 
+                    {% else %}
+                        class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all ui-state-hover"
+                    {% endif %}
+                >
+                <a href="{{item.url}}"><span class="ui-button-text">{{ item.name}}</span></a>
+                </li>
+            {% endfor %}
+            {% if p_country_code %}
+                <li class="no_bullets">
+                    <img id="country_flag_top_right" src="{{ COMMON_DOWNLOADABLE_STATIC_URL }}images/flags/{{p_country_code|lower}}_32.png">
+                </li>
+            {% endif %}
+            <li class="no_bullets"></li>
+            
+        {% endwith %}
+    </ul>
+{% endblock www_navigation %}
+
+{% block www_footer %}
+    <ul>
+    {% with request|get_footer_menu as menu %}
+        {% for item in menu %}
+            <li class="footer-link {% if item.selected %} boldish {% endif %}">
+            <a href="{{item.url}}">{{item.name}}</a>
+            </li>
+        {% endfor %}
+    {% endwith %}
+    </ul>
+    <p>&copy; 2011-{% now "Y" %} <b> Outsourcefactor.com</b></a></p>
+{% endblock www_footer %}
+    
+
+{% block www_body_extra %}
+
+    <div style="display:none">
+        <form id='csrf_post_form' class="{{csrf_token}}" action="" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+            {% csrf_token %}
+        </form>
+        <div id="skill_add_get_subcat" class="{% url 'skill_add_get_subcat' %}"></div>
+        <div id="skill_search_get_subcat" class="{% url 'skill_search_get_subcat' %}"></div>
+        <div id="profile_get_contact_info" class="{% url 'profile_get_contact_info' %}"></div>
+        <div id="employer_get_job_contact_info" class="{% url 'employer_get_job_contact_info' %}"></div>
+        <div id="post_link_bookmark_profile_add" class="{% url 'bookmark_add_profile_ajax' %}"></div>
+        <div id="post_link_bookmark_profile_del" class="{% url 'bookmark_del_profile_ajax' %}"></div>
+        <div id="post_link_bookmark_job_add" class="{% url 'bookmark_add_job_ajax' %}"></div>
+        <div id="post_link_bookmark_job_del" class="{% url 'bookmark_del_job_ajax' %}"></div>
+    </div>
+    
+    {% get_from_setting GOOGLE_ANALYTICS as google_analytics %}
+    {% if google_analytics %}
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '{{google_analytics}}']);
+          _gaq.push(['_setDomainName', 'outsourcefactor.com']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    {% endif %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            tile();
+        });
+    </script>
+    
+{% endblock www_body_extra %}
+

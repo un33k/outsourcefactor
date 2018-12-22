@@ -1,0 +1,15 @@
+{% extends "profiles/base_3col.html" %}
+
+{% block www_title %}{{block.super}} -- {% trans "Choose Profile Type" %} [{{request.user.username}}]{% endblock www_title %}
+
+{% block www_content_box_1_2 %}
+<div id="account-settings">
+    <form class="main_form" action="" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+        <fieldset>
+            <legend>{% trans "Choose Profile Type" %}</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <input type="submit" value="{% trans "Continue" %}" />
+    </form>
+</div>
+{% endblock www_content_box_1_2 %}

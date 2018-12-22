@@ -1,0 +1,24 @@
+{% extends "base/base_1col.html" %}
+{% block www_title %}{% trans "Message Sent" %}{% endblock www_title %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1 %}
+    <br />
+    <h2>{% trans "Your message has been sent!" %}</h2>
+    <br/>
+    <p>
+    {% trans "Your mail <i><b>will</b></i> be read by a real, live human being. <br/>We can't guarantee when or whether you'll get a reply, but your message <em>will</em> be read, generally within the next couple of days." %}
+    </p>
+    <br/>
+    <p>
+    {% trans "If you're expecting a reply and don't get one, please feel free to send a reminder. <br/>Please wait a few days, however, unless it's an emergency." %}
+    <br/><br/>
+    Thank you!
+    <br/>
+    The OutsourceFactor Team!
+    </p>
+    <br/>
+{% endblock www_content_box_1 %}

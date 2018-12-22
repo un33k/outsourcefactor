@@ -1,0 +1,42 @@
+{% with this_user|get_social_networks as social_networks %}
+
+    {% if is_public_view %}
+        {% if social_networks %}
+            <div class="public_header">Social Profiles&nbsp;&nbsp;&nbsp;</div>
+        {% endif %}
+    {% else %}
+        <div class="public_header">Social Networks&nbsp;&nbsp;&nbsp;
+        <a class="tooltip" href="{% url 'social_provider_list' %}">
+            {% if social_networks %}
+                <img src="{{STATIC_URL}}img/edit.png" />
+                <span class="ui-widget ui-widget-content ui-corner-all forward">
+                    Edit social details
+                </span>
+            {% else %}
+                <img src="{{STATIC_URL}}img/add.gif" />
+                <span class="ui-widget ui-widget-content ui-corner-all forward">
+                    Add new social accounts
+                </span>
+            {% endif %}                
+        </a>
+        </div>
+    {% endif %}
+    
+    {% if social_networks %}
+    <table class="tree-browser">
+        <tr class="odd">
+            <td class="provider">
+                {% for sp in social_networks %}
+                    <a class="tooltip help_cursor" href="javascript:void(0)">
+                        <img  src="{{ COMMON_DOWNLOADABLE_STATIC_URL }}images/social/{{ sp.name|lower }}_32.png"/>
+                        <span class="ui-widget ui-widget-content ui-corner-all social-buttons forward">
+                            {{ sp.msg }}
+                        </span>
+                    </a>
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+    {% endif %}
+{% endwith %}
+

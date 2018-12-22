@@ -1,0 +1,136 @@
+{% extends "base/base_3col.html" %}
+
+{% block www_title %}Home based jobs{% endblock www_title %}
+
+{% block www_description %}
+    <meta name="description" content="Get hired by an international company. Work from the comfort of your home. Post your resume and apply for home based jobs. Our free training book will amaze you." />
+{% endblock www_description %}
+
+{% block www_container_title %}
+    {% include "portal/submenu.html" %}
+{% endblock www_container_title %}
+
+{% block www_content_box_1_1 %}
+    <form id="job_search_form" class="search_form" action="{% url 'portal_job_search' %}" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+        <fieldset>
+            {{ form.as_p }}
+        </fieldset>
+        <input style="float:left" type="submit" value="{% trans "Search" %}" />
+        <a href="{% url 'portal_job_search' %}" class="gray-button reset-button">Reset</a>
+    </form>
+    <br/><br/>
+    <div class="fb-like-box" data-href="http://www.facebook.com/outsourcefactor" data-width="186" data-height="480" data-show-faces="true" data-border-color="#D7D7D7" data-stream="false" data-header="false"></div>
+{% endblock www_content_box_1_1 %}
+
+{% block www_content_box_1_2 %}
+    {% if jobposts %}
+        <div class="search_list">
+
+            <div id="pagination_search_north">
+                <span class="step-links-top">
+                    {% if jobposts.has_previous %}
+                        <a class="post_link " href="{% url 'portal_job_search_paginate' sk=search_key sp=jobposts.previous_page_number %}">
+                            <img src="{{ STATIC_URL }}img/prev.png">
+                        </a>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}img/prev-gray.png">
+                    {% endif %}
+
+
+                    {% if jobposts.has_next %}
+                        <a class="post_link" href="{% url 'portal_job_search_paginate' sk=search_key sp=jobposts.next_page_number %}">
+                            <img src="{{ STATIC_URL }}img/next.png">
+                        </a>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}img/next-gray.png">
+                    {% endif %}                
+                </span>
+                <span class="current-page-top">
+                   {% if request.user.is_authenticated and request.user.is_staff %}({{total_result|intcomma}} job{{total_result|pluralize:",s"}}) -- {% endif %} [Page {{ jobposts.number }} of {{ jobposts.paginator.num_pages|roundplus }}]
+                </span>
+            </div>
+
+            <ul class="browse_jobpost">
+            {% for job in jobposts %}
+                    <li class="e_block_jobpost border">
+                        <div class="nobr">
+                            <a class="e_jobpost" href="{% url 'employer_jobs_public_view' pk=job.id slug=job.get_slug %}" target="_blank">
+                                {{ search_kw|highlight:job.title }}
+                            </a>
+                        </div>
+                        <div class="nobr">
+                            <span class="e_jobpost_company_name">
+                                <img class="search_small_flags" src="{{ COMMON_DOWNLOADABLE_STATIC_URL }}images/flags/{{job.user.get_profile.country|lower}}_16.png" title="{{ job.user.get_profile.get_country_display }}"> {{ search_kw|highlight:job.user.get_profile.business }} 
+                            </span>
+                        </div>
+                        <div class="nobr">
+                            <p class="e_jobpost_details">
+                                [ Type: {{job.get_employment_option_display|upper}} ] - [ Salary: {{job.get_wage_salary_display|upper}} {% if job.employment_option != job.JOB_OPTION_FREELANCE and "USD" in job.get_wage_salary_display%} PER MONTH{% endif %} ] - [ Starts: {% if job.is_past_due %}IMMEDIATELY{% else %}{{job.start_date|upper}}{% endif %} ]
+                            </p>
+                        </div>
+                    
+                        <p><u>Description:</u> {{ search_kw|highlight:job.description|truncatechars:210 }}
+                    </li>
+                {% endfor %}
+            </ul> 
+
+            <br/>
+            <div id="pagination_search_south">
+                <span class="current-page-bottom">
+                    [Page {{ jobposts.number }} of {{ jobposts.paginator.num_pages|roundplus }}]
+                </span>
+                <span class="step-links-bottom">
+                    {% if jobposts.has_previous %}
+                        <a class="post_link " href="{% url 'portal_job_search_paginate' sk=search_key sp=jobposts.previous_page_number %}">
+                            <img src="{{ STATIC_URL }}img/prev.png">
+                        </a>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}img/prev-gray.png">
+                    {% endif %}
+                    
+                    {% if jobposts.has_next %}
+                        <a class="post_link" href="{% url 'portal_job_search_paginate' sk=search_key sp=jobposts.next_page_number %}">
+                            <img src="{{ STATIC_URL }}img/next.png">
+                        </a>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}img/next-gray.png">
+                    {% endif %}                
+                </span>
+            </div>
+            
+        </div>
+    {% else %}
+        {% if specific_search %}
+            <br/><br/>No match found for your search criteria. Please reset and try again.<br/><br/><hr/>
+        {% else %}
+            <br/><br/>
+        {% endif %}
+        <h2>Find the Perfect Online Job</h2>
+        <br/>
+        <p>Our job search engine is <strong>Clean, Simple and Fast</strong>. It's also completely free to use.  Search for jobs by skill or keywords. Explore the jobs that employers have posted and find one that matches your skills and interests. Then send a personal message to the employer to express your interest in the job.</p>
+
+        <p><br/><strong>Keyword search examples:</strong>&nbsp;&nbsp;(case insensitive)<br/>wordpress&nbsp;&nbsp;blog = search for both <u>wordpress AND blog</u> in any order<br/>wordpress&nbsp;&nbsp;-blog = search for only <u>wordpress AND NOT blog</u> in any order<br/>"wordpress&nbsp;&nbsp;admin" = search for <u>wordpress&nbsp;&nbsp;admin</u> together, in this exact order</p>
+                        
+    {% endif %} 
+    
+{% endblock www_content_box_1_2 %}
+
+{% block www_content_box_2 %}    
+    <div class="likeplus_top_right_linx">
+        <span class=" fb-like-box">
+        <div class="fb-like" data-href="{{p_domain_base}}" data-send="true" data-layout="button_count" data-width="158" data-show-faces="false" data-font="verdana"></div>
+        </span>
+    </div>
+    <div id="ads_box_right">
+        {% if request.user.is_authenticated %}
+            <a target="_blank" class="send2friend" href="mailto:?subject=Find online jobs at Outsourcefactor&amp;body=I found this job site useful and thought you might like it as well.%0d%0a%0d%0aIt has a lot of features including:%0d%0a%0d%0a+ Post Resume%0d%0a+ Jobs Search%0d%0a+ Bookmark Employers%0d%0a+ Contact Employers%0d%0a+ Social Login%0d%0a+ Youtube Video Pitch%0d%0a+ Access Training%0d%0a+ Free Accounts%0d%0a%0d%0aHere is the link:%0d%0a{{p_domain_base}}%0d%0a%0d%0aCheck it out today!">
+                <img class="signup_ad"src="{{ STATIC_URL }}img/ads/employee_send2friends_160.gif" />
+            </a>
+        {% else %}
+            <a href="{% url 'registration_register' %}" class="">
+                <img class="signup_ad"src="{{ STATIC_URL }}img/ads/employee_signup_160.gif" />
+            </a>        
+        {% endif %}
+    </div>
+{% endblock www_content_box_2 %}
+

@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+
+# domain info
+MAIN_DOMAIN_NAME = "example.com"
+TEST_DOMAIN_NAME = "example.net"
+
+# superuser info
+BOOTUP_SUPERUSER_NAME = "admin"
+BOOTUP_SUPERUSER_PASSWORD = "password_eh?"
+BOOTUP_SUPERUSER_EMAIL = BOOTUP_SUPERUSER_NAME+"@"+MAIN_DOMAIN_NAME
+
+# site info
+BOOTUP_SITES = {
+    '1': {
+        'name': 'production',
+        'domain': MAIN_DOMAIN_NAME
+    },
+    '2':{
+        'name': 'integration', # (optional)
+        'domain': TEST_DOMAIN_NAME
+    },
+    '3': {
+        'name': 'localhost', # development on local system (optional)
+        'domain': 'localhost:8080'
+    },
+    '4':{
+        'name': 'internal', # development on local or remote system (headless vmware!) (optional)
+        'domain': '192.168.224.128:8080'
+    }   
+}
+# active site id (must match one of the above) -- which site info to run under
+SITE_ID = 1
+
+DEFAULT_COUNTRY = 'Canada'
+TIME_ZONE = 'America/Toronto'
+
+# site signature, keep safe
+SECRET_KEY = "8opxza1erdfas9sdsfrsfsfsfsdfjklsdfsfs96&+&fkvc+)1k=voa(jfy}"
+
+# where the system, 404 erros go to
+MANAGERS = ADMINS = ((BOOTUP_SUPERUSER_NAME, BOOTUP_SUPERUSER_EMAIL),)
+
+# directory for logs and media upload
+PRIVATE_PERMANENT_DIR = "/opt/sites/mysite"
+
+# Cache Related Stuff
+CACHE_BACKEND = 'locmem:///'
+CACHE_MIDDLEWARE_SECONDS = 60*5
+CACHE_MIDDLEWARE_KEY_PREFIX = MAIN_DOMAIN_NAME
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
+
+# messaging storage -, you can send a message from a page to another via the session
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+# Logging stuff
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    "formatters": {
+        "simple": {"format": "[%(name)s] %(levelname)s: %(message)s"},
+        "full": {"format": "%(asctime)s [%(name)s] %(levelname)s: %(message)s"}
+    },
+    "handlers": {
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "logfile": {
+            "formatter": "full",
+            "level": "DEBUG",
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "filename": PRIVATE_PERMANENT_DIR +"/logs/www.log",
+            "when": "D",
+            "interval": 7,
+            "backupCount": 5,
+        }
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["mail_admins", "logfile"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "website": {
+            "handlers": ["console", "logfile"],
+            "level": "DEBUG",
+        }
+    }
+}
+
+# spam filter key
+AKISMET_API_KEY = "c898887662"
+
+# Database stuff
+DATABASES = {
+    'default': {
+        'ENGINE':   "django.db.backends.mysql",
+        'NAME':     "proj_db",
+        'USER':     "proj_user",
+        'PASSWORD': BOOTUP_SUPERUSER_PASSWORD,
+        'HOST':     "",
+        'PORT':     "",
+        'OPTIONS' : {
+            'init_command' : 'SET storage_engine=InnoDB',
+            'charset' : 'utf8',
+        },
+    }
+}
+
+# EMAIL SERVER
+EMAIL_HOST = "smtp.google.com"
+EMAIL_HOST_USER = "noreply"
+EMAIL_HOST_PASSWORD = BOOTUP_SUPERUSER_PASSWORD
+DEFAULT_FROM_EMAIL = "noreply@"+MAIN_DOMAIN_NAME
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+

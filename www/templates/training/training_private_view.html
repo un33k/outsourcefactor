@@ -1,0 +1,82 @@
+<div class="single_object_view">
+
+    <div class="bookmark_title">Your Training Materials</div>
+    {% if is_employer %}
+    <div id="accordion">
+        <h3><a href="#"><strong>Primer On Outsourcing</strong></a></h3>
+        <div>
+            <div class="book_cover_page">
+                <a href="{{ STATIC_URL }}training/primer_on_outsourcing.pdf" target="_blank">
+                    <img src="{{ STATIC_URL }}img/training/onlinebusiness_120.png">
+                </a>
+            </div>
+            <div class="training_description">
+                <strong>This free guide helps you get started outsourcing</strong><br/><br/>
+                <p>Building a successful business requires more than a good idea. It requires that you implement your ideas. Implementation takes a lot of time and energy. If you try to do everything yourself, you will find it impossible. You’ll fail to implement most of the good stuff that you should be doing.
+    That’s where outsourcing comes in ...</p>
+            </div>
+            
+            <div class="training_read_more">
+                <a href="{{ STATIC_URL }}training/primer_on_outsourcing.pdf" target="_blank">read more</a> 
+            </div>
+        </div>
+
+        <h3><a href="#"><strong>The Basics of Affiliate Marketing</strong></a></h3>
+        <div>
+            <div class="book_cover_page">
+                <a href="{{ STATIC_URL }}training/the_basics_of_affiliate_marketing.pdf" target="_blank">
+                    <img src="{{ STATIC_URL }}img/training/affiliate_marketin_120.png">
+                </a>
+            </div>
+            <div class="training_description">
+                <strong>This free guide helps you get started outsourcing</strong><br/><br/>
+                <p>If you are looking for a way to make money online you have probably heard of the term ‘affiliate marketing’. This report is going to help shed some light on this subject as well as outline the basic way for you to get started. This is intended to be an introductory level report ...</p>
+            </div>
+            
+            <div class="training_read_more">
+                <a href="{{ STATIC_URL }}training/the_basics_of_affiliate_marketing.pdf" target="_blank">read more</a> 
+            </div>
+        </div>
+        
+    </div>
+    {% else %}
+    
+        <div id="accordion">
+            <h3><a href="#"><strong>The Ultimate Online Job - Your Guide to Getting Hired</strong></a></h3>
+            <div>
+                <div class="book_cover_page">
+                    <a href="{{ STATIC_URL }}training/your_guide_to_getting_hired.pdf" target="_blank">
+                        <img src="{{ STATIC_URL }}img/training/onlinejobguide_120.png">
+                    </a>
+                </div>
+                <div class="training_description">
+                    <strong>This free guide helps you get started finding an online job</strong><br/><br/>
+                    <p>You can get an online job working for one company and be hired to work as a virtual employee. Technically, you will still be a contract worker, however, to you it would be the same as having a full-time job. You will be paid a regular monthly salary and will not have to worry who is paying you to put food on the table. ...</p>
+                </div>
+            
+                <div class="training_read_more">
+                    <a href="{{ STATIC_URL }}training/your_guide_to_getting_hired.pdf" target="_blank">read more</a> 
+                </div>
+            </div>
+            
+            <h3><a href="#"><strong>Introduction to EON Cyber Accounts and PayPal for the Philippines</strong></a></h3>
+            <div>
+                <div class="book_cover_page">
+                    <a href="{{ STATIC_URL }}training/eon_paypal_guide_for_the_philippines.pdf" target="_blank">
+                        <img src="{{ STATIC_URL }}img/training/eon_paypal_guide_120.png">
+                    </a>
+                </div>
+                <div class="training_description">
+                    <strong>This free guide helps you set up and link your Unionbank EON and Paypal accounts</strong><br/><br/>
+                    <p>Paypal is the preferred choice for most companies or employers to pay their offshore staff.  In order to withdraw any funds from a Paypal account, the funds must first be transferred to a bank account. The easiest way to do so is to link up a Paypal account with a bank account. In the Philippines, the Unionbank EON is the preferred cyber bank that allows you to do just that ...</p>
+                </div>
+            
+                <div class="training_read_more">
+                    <a href="{{ STATIC_URL }}training/eon_paypal_guide_for_the_philippines.pdf" target="_blank">read more</a> 
+                </div>
+            </div>
+        
+        </div>
+    
+    {% endif %}
+</div>

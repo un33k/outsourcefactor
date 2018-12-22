@@ -1,0 +1,52 @@
+{% extends "base/base_1col.html" %}
+
+{% block www_title %}Home based jobs in {{p_country_alt_name}}. Get hired by an international company{% endblock www_title %}
+
+{% block www_description %}
+    <meta name="description" content="Home based jobs in {{p_country_alt_name}}.  Our free ebook teaches you how to find the best online job." />
+{% endblock www_description %}
+
+{% block www_container %}
+
+    {% block www_container_title %}
+        {% include "portal/submenu.html" %}
+    {% endblock www_container_title %}
+
+    <h1 class="headline">Home based jobs in {{p_country_alt_name}}</h1>
+    <p class="ph_top_reason_about">Get hired by an international company</p>
+    <div id="top-container" class="group">  
+        
+        <div id="landing_promo_video_imac">
+            <div id="landing_promo_video_content">
+                <video width="356" height="208" id="player1"> 
+                    <source type="video/mp4" src="{{STATIC_URL}}video/landing_jobseekers.mp4?{{p_static_random}}" />
+                </video>
+            </div>
+        </div>
+        
+        <div id="jobseeker_reason_to_join">
+            <h3 class="header">Top reasons on why you should join OutsourceFactor</h3>
+            <ul>
+                <li class="top_reasons">Completely FREE to use by Jobseekers</li>
+                <li class="top_reasons">Free report teaches you exactly how to get a job</li>
+                <li class="top_reasons">Employers on OutsourceFactor want to hire people in {{p_country_alt_name}}</li>
+                <li class="top_reasons">It's easy to create your online profile and browse jobs</li>
+            </ul>
+            <br/>
+            <div class="signup_main_wrapper">
+                <div class="signup_main">
+                  <a href="{% url 'registration_register' %}" title="Try It Out - For Free">
+                  <div class="sign_up_text">Try It Out</div>
+                  <div class="sign_up_line"></div>
+                   Sign up in seconds
+                  </a>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+
+
+{% endblock www_container %}
+    

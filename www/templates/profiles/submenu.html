@@ -1,0 +1,51 @@
+<div id="menu-sub-1" class="ui-tabs ui-widget">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
+        <div sytle="float:left">
+            {% with request|get_profile_left_menu as menu %}
+            {% for item in menu %}
+                <li 
+                    {% if item.selected %} 
+                        class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active" 
+                    {% else %}
+                        class="ui-state-default ui-corner-top ui-state-hover"
+                    {% endif %}
+                >
+                    {% if item.editable %}
+                        <a class="required_menu_field" href="{{item.url}}">{{ item.name }}</a>
+                        <img src="{{STATIC_URL}}img/edit.png" />
+                    {% else %}
+                        <a href="{{item.url}}">{{ item.name }}</a>
+                    {% endif %}
+                    
+                </li>
+            {% endfor %}
+        {% endwith %}
+        </div>
+        <div style="float:right">
+            {% with request|get_profile_right_menu as menu %}
+                {% for item in menu %}
+                    <li 
+                        {% if item.selected %} 
+                            class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active" 
+                        {% else %}
+                            class="ui-state-default ui-corner-top ui-state-hover"
+                        {% endif %}
+                    >
+                        <a href="{{item.url}}">{{ item.name }}</a>
+                        {% if item.editable %}<img class="editable_pen" src="{{STATIC_URL}}img/edit.png" />{% endif %}
+                    </li>
+                {% endfor %}
+            {% endwith %}
+        </div>
+    </ul>
+</div>
+
+{% block www_notifications %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if forloop.last %}
+                <div id="msg_board"{% if message.tags %} class="{{ message.tags }}"{% endif %}>&raquo; {{ message }} &laquo;</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock www_notifications %}

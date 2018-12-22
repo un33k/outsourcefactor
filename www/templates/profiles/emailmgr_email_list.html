@@ -1,0 +1,68 @@
+{% extends "profiles/base_3col.html" %}
+
+
+{% block www_title %}{{block.super}} -- {% trans "Change Email " %} [{{request.user.username}}]{% endblock www_title %}
+
+
+{% block www_content_box_1_2 %}
+
+<div id="email_list_management">
+    <p class="justify">
+        <strong>Note:</strong>
+        Your primary email is used for your <a href="http://gravatar.com" target="_blank">Gravatar</a>.
+        ( upload your <strong>{% if request.user.get_profile.is_employee %}photo{% else %}logo{% endif %}</strong> today! )
+        <br/>
+    </p>
+    
+    <div class="list-header">Email List</div>
+    <table class="tree-browser">
+    {% for e in email_list %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td class="gravatar">
+                <a href="http://gravatar.com/" title="add your gravatar">
+                    {% gravatar_img_for_email e.email 25 %}
+                </a>
+            </td>
+            <td class="email">{{ e.email }}</td>
+            <td class="status">
+                {% if e.is_primary %}
+                    Primary
+                {% else %}
+                    {% if e.is_active %}
+                        <a href= "{% url 'emailmgr_email_make_primary' e.identifier %}">Make Primary</a>
+                    {% else %}
+                        <a href= "{% url 'emailmgr_email_send_activation' e.identifier %}">
+                            {% if e.is_activation_sent %}Resend{% else %}Send{% endif %} Activation
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td class="image">
+                {% if e.is_primary %}
+                    <a href="javascript:void(0)" class="tooltip help_cursor"><img src="{{STATIC_URL}}img/star.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">
+                            This is primary email address which we will use to communicate with you. You can also login with this email address.
+                        </span>
+                    </a>           
+                {% else %}
+                    <a class="confirm tooltip" href= "{% url 'emailmgr_email_delete' e.identifier %}">
+                        <img src="{{STATIC_URL}}img/minus_circle.png" />
+                        <span class="ui-widget ui-widget-content ui-corner-all forward">Delete email address</span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <form class="main_form" action="{% url 'emailmgr_email_add' %}" enctype="multipart/form-data" method="post" accept-charset="utf-8">{% csrf_token %}
+        <fieldset>
+            <legend>{% trans "Add Email Address" %}</legend>
+            {{ email_form.as_p }}
+        </fieldset>
+        <input type="submit" value="{% trans "Add Email" %}" />
+    </form>
+
+</div>
+
+{% endblock www_content_box_1_2 %}

@@ -1,0 +1,13 @@
+{% extends "profiles/base_3col.html" %}
+
+{% block www_title %}{{block.super}} -- {% trans " Account Profile Details " %}{% endblock www_title %}
+
+{% block www_content_box_1_2 %}
+
+    {% if profile.is_employee %}
+        {% include "profiles/employee_profile_private_view.html" %}
+    {% else %}
+        {% include "profiles/employer_profile_private_view.html" %}
+    {% endif %}
+
+{% endblock www_content_box_1_2 %}
